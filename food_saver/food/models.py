@@ -1,8 +1,10 @@
 from django.db import models
 
+from .choices import MeasureChoices, FoodCategoryChoices, MealCategoryChoices, TypeChoices
+
 
 class Quantities(models.Model):
-    measure = models.CharField(max_length=100)  # TODO enum
+    measure = models.IntegerField(choices=MeasureChoices.choices)
     amount = models.PositiveIntegerField()
 
     def __str__(self):
@@ -11,7 +13,7 @@ class Quantities(models.Model):
 
 class Products(models.Model):
     name = models.CharField(max_length=250)
-    category = models.CharField(max_length=100)  # TODO enum
+    category = models.IntegerField(choices=FoodCategoryChoices.choices)
 
     def __str__(self):
         return self.name
@@ -37,14 +39,14 @@ class Recipes(models.Model):
     description = models.TextField()
     ingredients = models.ManyToManyField(Ingredients)
     servings = models.PositiveIntegerField()
-    type = models.CharField(max_length=100)  # TODO enum (soup, main dish, salat etc)
+    type = models.IntegerField(choices=TypeChoices.choices)
 
     def __str__(self):
         return self.name
 
 
 class Meal(models.Model):
-    category = models.CharField(max_length=100)  # TODO enum (breakfast, lunch etc)
+    category = models.IntegerField(choices=MealCategoryChoices.choices)
     recipes = models.ManyToManyField(Recipes)
 
     def __str__(self):
@@ -62,7 +64,7 @@ class StockProducts(models.Model):
 
 class StockMeals(models.Model):
     recipe = models.OneToOneField(Recipes, on_delete=models.CASCADE)
-    type = models.CharField(max_length=100)  # TODO enum (soup, main dish, salat etc)
+    type = models.IntegerField(choices=TypeChoices.choices)
     prepared = models.DateTimeField()
     quantity = models.IntegerField()
 
