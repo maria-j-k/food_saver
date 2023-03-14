@@ -4,15 +4,16 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('food', '0001_initial'),
+        ("food", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='products',
-            name='category',
-            field=models.IntegerField(choices=[(0, 'Loose'), (1, 'Canned'), (2, 'Dairy'), (3, 'Vegetables'), (4, 'Fruits')]),
+            model_name="products",
+            name="category",
+            field=models.IntegerField(
+                choices=[(0, "Loose"), (1, "Canned"), (2, "Dairy"), (3, "Vegetables"), (4, "Fruits")]
+            ),
         ),
     ]

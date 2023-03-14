@@ -1,6 +1,11 @@
 from django.db import models
 
-from .choices import MeasureChoices, FoodCategoryChoices, MealCategoryChoices, TypeChoices
+from .choices import (
+    FoodCategoryChoices,
+    MealCategoryChoices,
+    MeasureChoices,
+    TypeChoices,
+)
 
 
 class Quantities(models.Model):
@@ -50,7 +55,7 @@ class Meal(models.Model):
     recipes = models.ManyToManyField(Recipes)
 
     def __str__(self):
-        return super.__str__()
+        return super().__str__()
         # return f"{self.category}: {self.recipes}"  # TODO parse recipes
 
 
