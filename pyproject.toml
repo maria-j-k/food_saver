@@ -1,20 +1,20 @@
 [tool.poetry]
-name = "food-app"
+name = "food-saver"
 version = "0.1.0"
 description = ""
 authors = ["Maria.Kowalska <maria.kowalska@itechart-group.com>"]
 readme = "README.md"
-packages = [{include = "food_app"}]
+packages = [{include = "food_saver"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-Django = "^4.1.7"
+django = "^4.1.7"
 djangorestframework = "^3.14.0"
 django-environ = "^0.10.0"
-psycopg2 = "^2.9.5"
 dj-database-url = "^1.2.0"
-pyyaml = "^6.0"
 uritemplate = "^4.1.1"
+pyyaml = "^6.0"
+psycopg2 = "^2.9.5"
 
 
 [build-system]
