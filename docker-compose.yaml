@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    env_file:
+      - ./food_saver_app/.env-docker
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  backend:
+    container_name: food-saver-api
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    entrypoint:
+      - /code/entrypoint.sh
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+          condition: service_healthy
+    links:
+      - db
+
+volumes:
+  db-data:
