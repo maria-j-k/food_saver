@@ -4,7 +4,6 @@ version = "0.1.0"
 description = ""
 authors = ["Maria.Kowalska <maria.kowalska@itechart-group.com>"]
 readme = "README.md"
-packages = [{include = "food_saver"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
