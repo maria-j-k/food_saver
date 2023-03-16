@@ -17,7 +17,6 @@ RUN pip3 install pip==22.3
 RUN pip install "poetry==$POETRY_VERSION"
 
 WORKDIR /code
-RUN chmod -R 755 /code
 COPY poetry.lock pyproject.toml /code/
 
 FROM base as staging
