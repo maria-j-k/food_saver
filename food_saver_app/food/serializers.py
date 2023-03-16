@@ -10,7 +10,7 @@ class ProductReadSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Products
-        fields = ["name", "category"]
+        fields = ["id", "name", "category"]
 
     def get_category(self, obj: Products) -> str:
         return obj.get_category_display()

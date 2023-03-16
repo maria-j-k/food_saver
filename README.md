@@ -26,3 +26,44 @@ subsequent commands with `poetry run`
 - run `python manage.py migrate`
 - run `python manage.py createsuperuser`
 - run `python manage.py runserver`
+
+### Docker Image
+#### In development mode
+run
+```bash
+        export ENVIRONMENT=docker-dev
+        docker compose up --build
+```
+If you want to stop the container but have the data you've entered to database persist, run
+
+```bash
+         docker compose stop
+```
+
+Than to restart the same container with the data in the database, run
+
+```bash
+         docker compose start
+```
+
+If you want to destroy the container and the created database, run
+
+```bash
+         docker compose down
+```
+
+If you want to recreate the container but don't need to rebuild the image run
+```bash
+        docker compose up
+```
+
+
+#### As staging
+```bash
+        export ENVIRONMENT=docker
+        docker compose -f docker-compose-staging.yaml up --build
+```
+The database is persisting, so you can use `stop` or `down` commnad, it will not affect the database contnet.
+
+You can start, stop, bring up or down the container using the same commands as in the previous section, you just need
+to provide the additional argument `-f docker-compose-staging.yaml` after the `docker compose` command.

@@ -14,11 +14,10 @@ from pathlib import Path
 
 import environ
 
-ENV_FILES_MAP = {"dev": ".env", "docker": ".env-docker"}
+ENV_FILES_MAP = {"dev": ".env", "docker": ".env-docker", "docker-dev": ".env-docker"}
 
 
-def get_env_file() -> str:
-    environment = os.environ.get("ENVIRONMENT")
+def get_env_file(environment) -> str:
     if environment is None:
         return "dev"
     env_file = ENV_FILES_MAP[environment]
@@ -29,11 +28,13 @@ env = environ.Env(DEBUG=(bool, False))
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env_file = get_env_file()
+environment = os.environ.get("ENVIRONMENT")
+
+env_file = get_env_file(environment)
 environ.Env.read_env(BASE_DIR / env_file)
 
 SECRET_KEY = env("SECRET_KEY")
-DEBUG = env("DEBUG")
+DEBUG = True if environment == "docker-dev" else env("DEBUG")
 
 ALLOWED_HOSTS = ["*"]
 
@@ -81,16 +82,6 @@ TEMPLATES = [
 WSGI_APPLICATION = "food_saver.wsgi.application"
 
 
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-#
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     "default": env.db(),
 }
@@ -130,6 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

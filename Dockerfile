@@ -1,8 +1,8 @@
-FROM python:3.11.0
+FROM python:3.11.0 as base
 
 ARG ENVIRONMENT
 
-ENV DRF_ENV=${ENVIRONMENT} \
+ENV ENVIRONMENT=${ENVIRONMENT} \
   PYTHONFAULTHANDLER=1 \
   PYTHONUNBUFFERED=1 \
   PYTHONHASHSEED=random \
@@ -17,13 +17,17 @@ RUN pip3 install pip==22.3
 RUN pip install "poetry==$POETRY_VERSION"
 
 WORKDIR /code
+RUN chmod -R 755 /code
 COPY poetry.lock pyproject.toml /code/
 
-
-# staging
+FROM base as staging
 RUN poetry config virtualenvs.create false \
   && poetry install --no-interaction --no-ansi --without dev
 
+COPY . /code
 
+FROM base as dev
+RUN poetry config virtualenvs.create false \
+    && poetry install --no-interaction --no-ansi
 
 COPY . /code

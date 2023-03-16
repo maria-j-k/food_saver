@@ -4,7 +4,7 @@ services:
   db:
     image: postgres
     volumes:
-      - /var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
     env_file:
       - ./food_saver_app/.env-docker
     healthcheck:
@@ -19,8 +19,6 @@ services:
       target: staging
       args:
         ENVIRONMENT: $ENVIRONMENT
-    volumes:
-      - .:/code:ro
     entrypoint:
       - /code/entrypoint.sh
     ports:
@@ -30,3 +28,6 @@ services:
           condition: service_healthy
     links:
       - db
+
+volumes:
+  db-data:
