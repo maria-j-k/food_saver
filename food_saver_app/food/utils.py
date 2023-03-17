@@ -1,8 +1,11 @@
 from typing import Any, Dict
 
-from .choices import FoodCategoryChoices
+from .choices import FoodCategoryChoices, MeasureChoices
 
-FIELD_CHOICE_MAP: Dict[str, Any] = {"category": FoodCategoryChoices}
+FIELD_CHOICE_MAP: Dict[str, Any] = {
+    "category": FoodCategoryChoices,
+    "measure": MeasureChoices,
+}
 
 
 def get_choices_error_message(field) -> str:

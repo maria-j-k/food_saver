@@ -45,6 +45,7 @@ class Recipes(models.Model):
     ingredients = models.ManyToManyField(Ingredients)
     servings = models.PositiveIntegerField()
     type = models.IntegerField(choices=TypeChoices.choices)
+    private = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
